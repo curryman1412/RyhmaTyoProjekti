@@ -1,0 +1,46 @@
+<div class="container">
+  <% if (error !== null) { %>
+  <div class="error"><%= error %></div>
+  <% } else if (recipe) { %>
+  <div class="recipe-detail">
+    <div class="recipe-header">
+      <h1><%= recipe.strMeal %></h1>
+      <img
+        src="<%= recipe.strMealThumb %>"
+        alt="<%= recipe.strMeal %>"
+        class="recipe-image"
+      />
+    </div>
+
+    <div class="recipe-info">
+      <div class="recipe-category">
+        <h3>Category:</h3>
+        <p><%= recipe.strCategory %></p>
+      </div>
+      <div class="recipe-area">
+        <h3>Cuisine:</h3>
+        <p><%= recipe.strArea %></p>
+      </div>
+    </div>
+
+    <div class="recipe-ingredients">
+      <h3>Ingredients:</h3>
+      <ul>
+        <% for(let i = 1; i <= 20; i++) { %> <% if(recipe[`strIngredient${i}`]
+        && recipe[`strIngredient${i}`].trim() !== '') { %>
+        <li>
+          <%= recipe[`strMeasure${i}`] %> <%= recipe[`strIngredient${i}`] %>
+        </li>
+        <% } %> <% } %>
+      </ul>
+    </div>
+
+    <div class="recipe-instructions">
+      <h3>Instructions:</h3>
+      <p><%= recipe.strInstructions %></p>
+    </div>
+  </div>
+  <% } else { %>
+  <div class="error">Recipe not found</div>
+  <% } %>
+</div>
