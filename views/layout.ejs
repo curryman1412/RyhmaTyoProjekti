@@ -16,7 +16,8 @@
   <body>
     <header>
       <nav>
-        <a href="/" class="logo">Recipe App</a>
+        <img id="logo-img" src="/reseptiguru-logo.png" alt="Recipe App Logo" />
+        <a href="/" class="logo">Reseptisivusto</a>
         <ul>
           <li><a href="/">Home</a></li>
           <% if (locals.user) { %>
@@ -30,7 +31,6 @@
           <% } %>
         </ul>
       </nav>
-      <%- include('partials/search-form') %>
     </header>
 
     <main><%- body %></main>
