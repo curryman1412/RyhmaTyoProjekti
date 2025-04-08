@@ -216,3 +216,202 @@ footer {
   bottom: 0;
   width: 100%;
 }
+
+/* Authentication forms */
+.auth-form {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #666;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4caf50;
+}
+
+.auth-form .button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.auth-form .button:hover {
+  background-color: #45a049;
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #666;
+}
+
+.auth-link a {
+  color: #4caf50;
+  text-decoration: none;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
+
+/* User status in navigation */
+.user-status {
+  color: #4caf50;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+}
+
+/* Rating system */
+.rating-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #ddd;
+}
+
+.rating-form {
+  max-width: 500px;
+  margin: 1rem 0;
+}
+
+.rating-input {
+  margin-bottom: 1rem;
+}
+
+.stars {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+}
+
+.stars input[type="radio"] {
+  display: none;
+}
+
+.stars label {
+  font-size: 2rem;
+  color: #ddd;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.stars input[type="radio"]:checked ~ label,
+.stars label:hover,
+.stars label:hover ~ label {
+  color: #ffd700;
+}
+
+.stars input[type="radio"]:checked + label:hover,
+.stars input[type="radio"]:checked ~ label:hover,
+.stars label:hover ~ input[type="radio"]:checked ~ label,
+.stars input[type="radio"]:checked ~ label:hover ~ label {
+  color: #ffd700;
+}
+
+.rating-form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  resize: vertical;
+}
+
+.ratings-list {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #ddd;
+}
+
+.rating-item {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.rating-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.rating-user {
+  font-weight: bold;
+  color: #333;
+}
+
+.rating-stars {
+  display: flex;
+  gap: 3px;
+}
+
+.rating-stars .star {
+  font-size: 1.2rem;
+  color: #ddd;
+}
+
+.rating-stars .star.filled {
+  color: #ffd700;
+}
+
+.rating-comment {
+  color: #666;
+  margin: 0.5rem 0;
+}
+
+.rating-date {
+  font-size: 0.9rem;
+  color: #999;
+}
+
+.login-prompt {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.login-prompt a {
+  color: #4caf50;
+  text-decoration: none;
+}
+
+.login-prompt a:hover {
+  text-decoration: underline;
+}
