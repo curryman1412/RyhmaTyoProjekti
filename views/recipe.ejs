@@ -23,6 +23,26 @@
       </div>
     </div>
 
+    <div class="recipe-links">
+      <% if (recipe.strSource) { %>
+      <a
+        href="<%= recipe.strSource %>"
+        target="_blank"
+        class="recipe-link source-link"
+      >
+        <span class="link-icon">🔗</span> View Original Recipe
+      </a>
+      <% } %> <% if (recipe.strYoutube) { %>
+      <a
+        href="<%= recipe.strYoutube %>"
+        target="_blank"
+        class="recipe-link youtube-link"
+      >
+        <span class="link-icon">▶️</span> Watch Video Tutorial
+      </a>
+      <% } %>
+    </div>
+
     <div class="recipe-ingredients">
       <h3>Ingredients:</h3>
       <ul>
@@ -37,12 +57,30 @@
 
     <div class="recipe-instructions">
       <h3>Instructions:</h3>
-      <p><%= recipe.strInstructions %></p>
+      <% const steps = recipe.strInstructions.split(/[.!?]/).filter(step =>
+      step.trim()); %>
+      <p><%= steps.map(step => step.trim() + '.').join('\n').trim() %></p>
     </div>
 
     <% if (locals.user) { %>
     <div class="rating-section">
       <h3>Rate this recipe</h3>
+      <% if (ratings && ratings.length > 0) { %>
+      <div class="average-rating">
+        <% const avgRating = ratings.reduce((sum, r) => sum +
+        parseInt(r.rating), 0) / ratings.length; const roundedAvg =
+        Math.round(avgRating * 10) / 10; %>
+        <p>
+          Average Rating: <strong><%= roundedAvg %></strong> / 5 (<%=
+          ratings.length %> reviews)
+        </p>
+        <div class="rating-stars">
+          <% for(let i = 1; i <= 5; i++) { %>
+          <span class="star <%= i <= avgRating ? 'filled' : '' %>">★</span>
+          <% } %>
+        </div>
+      </div>
+      <% } %>
       <form
         action="/recipe/<%= recipe.idMeal %>/rate"
         method="POST"
@@ -71,6 +109,22 @@
     </div>
     <% } else { %>
     <div class="login-prompt">
+      <% if (ratings && ratings.length > 0) { %>
+      <div class="average-rating">
+        <% const avgRating = ratings.reduce((sum, r) => sum +
+        parseInt(r.rating), 0) / ratings.length; const roundedAvg =
+        Math.round(avgRating * 10) / 10; %>
+        <p>
+          Average Rating: <strong><%= roundedAvg %></strong> / 5 (<%=
+          ratings.length %> reviews)
+        </p>
+        <div class="rating-stars">
+          <% for(let i = 1; i <= 5; i++) { %>
+          <span class="star <%= i <= avgRating ? 'filled' : '' %>">★</span>
+          <% } %>
+        </div>
+      </div>
+      <% } %>
       <p>Please <a href="/login">login</a> to rate this recipe.</p>
     </div>
     <% } %> <% if (ratings && ratings.length > 0) { %>

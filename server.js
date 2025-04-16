@@ -107,6 +107,15 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Logout error:", err);
+    }
+    res.redirect("/");
+  });
+});
+
 app.get("/register", (req, res) => {
   if (req.session.user) {
     res.redirect("/");
@@ -118,6 +127,17 @@ app.get("/register", (req, res) => {
 app.post("/register", async (req, res) => {
   try {
     const { username, email, password, confirmPassword } = req.body;
+
+    // Password validation regex
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
+
+    if (!passwordRegex.test(password)) {
+      return res.render("register", {
+        error:
+          "Password must be at least 8 characters long, include both uppercase and lowercase letters and special characters.",
+      });
+    }
 
     if (password !== confirmPassword) {
       return res.render("register", { error: "Passwords do not match" });
@@ -149,15 +169,6 @@ app.post("/register", async (req, res) => {
     console.error("Registration error:", error);
     res.render("register", { error: "An error occurred during registration" });
   }
-});
-
-app.get("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error("Logout error:", err);
-    }
-    res.redirect("/");
-  });
 });
 
 // Routes

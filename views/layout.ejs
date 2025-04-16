@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Recipe App</title>
+    <title>Reseptiguru</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,9 +16,18 @@
   <body>
     <header>
       <nav>
-        <img id="logo-img" src="/reseptiguru-logo.png" alt="Recipe App Logo" />
-        <a href="/" class="logo">Reseptisivusto</a>
-        <ul>
+        <div class="nav-left">
+          <a href="/"
+            ><img id="logo-img" src="/reseptiguru-logo.png" alt="Reseptiguru"
+          /></a>
+          <a href="/" class="logo">ReseptiGuru</a>
+        </div>
+        <button class="hamburger" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-menu">
           <li><a href="/">Home</a></li>
           <% if (locals.user) { %>
           <li>
@@ -39,6 +48,14 @@
       <p>&copy; 2024 Recipe App</p>
     </footer>
 
+    <script>
+      document
+        .querySelector(".hamburger")
+        .addEventListener("click", function () {
+          this.classList.toggle("active");
+          document.querySelector(".nav-menu").classList.toggle("active");
+        });
+    </script>
     <%- script %>
   </body>
 </html>
