@@ -16,6 +16,7 @@ const dbUser = "s2301348";
 const dbPwd = "Smq_vxiS";
 
 // Create database connection pool
+
 const pool = mysql.createPool({
   host: dbHost,
   user: dbUser,
@@ -76,6 +77,7 @@ app.get("/login", (req, res) => {
   }
 });
 
+// a route handler for handling logins
 app.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -107,6 +109,9 @@ app.post("/login", async (req, res) => {
   }
 });
 
+
+// registeration route
+
 app.get("/register", (req, res) => {
   if (req.session.user) {
     res.redirect("/");
@@ -114,7 +119,7 @@ app.get("/register", (req, res) => {
     res.render("register", { error: null });
   }
 });
-
+// handles post request for user registration
 app.post("/register", async (req, res) => {
   try {
     const { username, email, password, confirmPassword } = req.body;
@@ -211,7 +216,7 @@ app.get("/search", async (req, res) => {
     });
   }
 });
-
+// a handler for displaying meals for each category
 app.get("/category/:category", async (req, res) => {
   try {
     const category = req.params.category;
@@ -229,7 +234,7 @@ app.get("/category/:category", async (req, res) => {
     });
   }
 });
-
+// route handle for displaying recipes
 app.get("/recipe/:id", async (req, res) => {
   try {
     const id = req.params.id;
