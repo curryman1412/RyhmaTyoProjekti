@@ -33,11 +33,11 @@ app.use(
     secret: "your-secret-key",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }, // Set to true if using HTTPS
+    cookie: { secure: false },
   })
 );
 
-// Middleware to check if user is authenticated
+// check if user is authenticated
 const isAuthenticated = (req, res, next) => {
   if (req.session.user) {
     next();
@@ -46,7 +46,7 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 
-// Middleware to make user data available to all views
+// make user data availabe to all views
 app.use((req, res, next) => {
   res.locals.user = req.session.user;
   next();
@@ -295,6 +295,41 @@ app.post("/recipe/:id/rate", isAuthenticated, async (req, res) => {
     console.error("Rating error:", error);
     res.redirect(`/recipe/${id}`);
   }
+});
+
+app.get("/profile", isAuthenticated, async (req, res) => {
+  try {
+    const [userRatings] = await pool.query(
+      `SELECT r.*, u.username 
+       FROM ratings r 
+       JOIN users u ON r.user_id = u.id 
+       WHERE r.user_id = ? 
+       ORDER BY r.created_at DESC`,
+      [req.session.user.id]
+    );
+
+    res.render("profile", {
+      user: req.session.user,
+      userRatings: userRatings,
+      error: null,
+    });
+  } catch (error) {
+    console.error("Error fetching user ratings:", error);
+    res.render("profile", {
+      user: req.session.user,
+      userRatings: [],
+      error: "Failed to load ratings",
+    });
+  }
+});
+
+app.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Logout error:", err);
+    }
+    res.redirect("/login");
+  });
 });
 
 app.listen(port, () => {

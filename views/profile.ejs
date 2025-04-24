@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="profile-container">
+    <h1>Profile</h1>
+
+    <p>Welcome, <%= user.username %></p>
+    <p>Email: <%= user.email %></p>
+    <h2>My Ratings</h2>
+    <% if (error) { %>
+    <div class="error"><%= error %></div>
+    <% } %> <% if (userRatings && userRatings.length > 0) { %>
+    <div class="ratings-list">
+      <% userRatings.forEach(rating => { %>
+      <div class="rating-item">
+        <p>Recipe ID: <%= rating.recipe_id %></p>
+        <p>Rating: <%= rating.rating %>/5</p>
+        <% if (rating.comment) { %>
+        <p>Comment: <%= rating.comment %></p>
+        <% } %>
+        <p>Date: <%= rating.created_at.toLocaleDateString() %></p>
+        <a href="/recipe/<%= rating.recipe_id %>">View Recipe</a>
+      </div>
+      <% }); %>
+    </div>
+    <% } else { %>
+    <p>You haven't rated any recipes yet.</p>
+    <% } %>
+    <a href="/logout" class="button">Logout</a>
+  </div>
+</div>

@@ -14,6 +14,7 @@
     <%- style %>
   </head>
   <body>
+    <!-- navigation -->
     <header>
       <nav>
         <div class="nav-left">
@@ -30,9 +31,7 @@
         <ul class="nav-menu">
           <li><a href="/">Home</a></li>
           <% if (locals.user) { %>
-          <li>
-            <span class="user-status">Welcome, <%= user.username %></span>
-          </li>
+          <li><a href="/profile">Profile</a></li>
           <li><a href="/logout">Logout</a></li>
           <% } else { %>
           <li><a href="/login">Login</a></li>
@@ -49,6 +48,7 @@
     </footer>
 
     <script>
+      //script for easier access, hamburger menu on mobile view
       document
         .querySelector(".hamburger")
         .addEventListener("click", function () {
