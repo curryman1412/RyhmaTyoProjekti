@@ -16,3 +16,15 @@ CREATE TABLE IF NOT EXISTS ratings (
     FOREIGN KEY (user_id) REFERENCES users(id),
     UNIQUE KEY unique_user_recipe (user_id, recipe_id)
 ); 
+
+CREATE TABLE IF NOT EXISTS favorites (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    recipe_id VARCHAR(50) NOT NULL,
+    recipe_name VARCHAR(255),
+    recipe_thumbnail VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    UNIQUE KEY unique_favorite (user_id, recipe_id)
+);
+

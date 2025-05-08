@@ -111,11 +111,20 @@ nav {
   padding: 0;
   position: relative;
 }
+.nav-left img {
+  height: 100px; /* Or however tall you want it */
+  width: auto;
+  display: block; /* Removes bottom white space */
+}
 
-.nav-left {
-  display: flex;
-  align-items: center;
-  min-width: 200px;
+.logo-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%; /* Makes it a circle */
+  background-color: white;
+  padding: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .hamburger {
@@ -146,18 +155,31 @@ nav {
   padding: 0.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 .logo {
-  color: white;
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  font-size: 2rem;
-  font-weight: bold;
+  color: white;
   font-family: var(--font-heading);
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
+  gap: 0.5rem;
 }
+
+.logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: white;
+  padding: 0.2rem;
+}
+
+.logo-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: auto;
+  width: 50%;
+}
+
 
 .nav-menu {
   display: flex;
@@ -855,6 +877,51 @@ footer {
 .link-icon {
   font-size: 1.2rem;
 }
+
+
+.favorites-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin: 2rem 0;
+}
+
+.favorites-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  padding: 0;
+}
+
+.favorite-card {
+  background: var(--color-background);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.favorite-card:hover {
+  transform: translateY(-5px);
+}
+
+.favorite-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.no-favorites {
+  text-align: center;
+  color: #888;
+  padding: 2rem 0;
+}
+
 
 @media (max-width: 768px) {
   .recipe-links {

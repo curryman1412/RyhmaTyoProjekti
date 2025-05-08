@@ -16,7 +16,6 @@ const dbUser = "s2301348";
 const dbPwd = "Smq_vxiS";
 
 // Create database connection pool
-
 const pool = mysql.createPool({
   host: dbHost,
   user: dbUser,
@@ -77,7 +76,7 @@ app.get("/login", (req, res) => {
   }
 });
 
-// a route handler for handling logins
+// Route handler for handling logins
 app.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -116,7 +115,8 @@ app.get("/register", (req, res) => {
     res.render("register", { error: null });
   }
 });
-// handles post request for user registration
+
+// Handles post request for user registration
 app.post("/register", async (req, res) => {
   try {
     const { username, email, password, confirmPassword } = req.body;
@@ -215,7 +215,8 @@ app.get("/search", async (req, res) => {
     });
   }
 });
-// a handler for displaying meals for each category
+
+// Route handler for displaying meals for each category
 app.get("/category/:category", async (req, res) => {
   try {
     const category = req.params.category;
@@ -233,7 +234,8 @@ app.get("/category/:category", async (req, res) => {
     });
   }
 });
-// route handle for displaying recipes
+
+// Route handler for displaying recipes
 app.get("/recipe/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -294,6 +296,60 @@ app.post("/recipe/:id/rate", isAuthenticated, async (req, res) => {
   } catch (error) {
     console.error("Rating error:", error);
     res.redirect(`/recipe/${id}`);
+  }
+});
+
+app.post("/recipe/:id/favorite", isAuthenticated, async (req, res) => {
+  const { id } = req.params;
+  const { recipe_name, recipe_thumbnail } = req.body;
+  const userId = req.session.user.id;
+
+  try {
+    // Add the favorite
+    await pool.query(
+      "INSERT INTO favorites (user_id, recipe_id, recipe_name, recipe_thumbnail) VALUES (?, ?, ?, ?)",
+      [userId, id, recipe_name, recipe_thumbnail]
+    );
+
+    // Fetch updated favorites after adding
+    const [favorites] = await pool.query(
+      "SELECT * FROM favorites WHERE user_id = ? ORDER BY created_at DESC",
+      [userId]
+    );
+
+    // Re-render the profile page with the updated favorites
+    res.render("profile", { favorites });
+  } catch (error) {
+    console.error("Error adding favorite:", error);
+    res.redirect(`/recipe/${id}`);
+  }
+});
+
+// Logout route
+app.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Error destroying session:", err);
+      return res.redirect("/");
+    }
+    res.redirect("/login");
+  });
+});
+
+// Profile route
+app.get("/profile", isAuthenticated, async (req, res) => {
+  try {
+    const userId = req.session.user.id;
+    // Fetch the user's favorites
+    const [favorites] = await pool.query(
+      "SELECT * FROM favorites WHERE user_id = ? ORDER BY created_at DESC",
+      [userId]
+    );
+    // Render the profile page with the user's favorites
+    res.render("profile", { favorites });
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    res.render("profile", { favorites: [], error: "Failed to load profile" });
   }
 });
 

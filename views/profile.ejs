@@ -1,0 +1,15 @@
+<h2>Your Favorites</h2>
+<div class="favorites-section">
+  <% if (favorites && favorites.length > 0) { %>
+    <ul class="favorites-list">
+      <% favorites.forEach(favorite => { %>
+        <li class="favorite-card">
+          <img src="<%= favorite.recipe_thumbnail %>" alt="<%= favorite.recipe_name %>" class="favorite-img" />
+          <h3><%= favorite.recipe_name %></h3>
+        </li>
+      <% }); %>
+    </ul>
+  <% } else { %>
+    <p class="no-favorites">You have no favorites yet.</p>
+  <% } %>
+</div>

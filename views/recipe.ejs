@@ -23,6 +23,7 @@
       </div>
     </div>
 
+   
     <div class="recipe-links">
       <% if (recipe.strSource) { %>
       <a
@@ -32,16 +33,27 @@
       >
         <span class="link-icon">🔗</span> View Original Recipe
       </a>
-      <% } %> <% if (recipe.strYoutube) { %>
-      <a
-        href="<%= recipe.strYoutube %>"
-        target="_blank"
-        class="recipe-link youtube-link"
-      >
-        <span class="link-icon">▶️</span> Watch Video Tutorial
-      </a>
       <% } %>
+    
+      <a
+        href="https://www.themealdb.com/meal/<%= recipe.idMeal %>-<%= recipe.strMeal.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '') %>-recipe"
+        target="_blank"
+        class="recipe-link themealdb-link"
+      >
+        <span class="link-icon">🌐</span> View on TheMealDB
+      </a>
+      <% if (locals.user) { %>
+        <form action="/recipe/<%= recipe.idMeal %>/favorite" method="POST" class="favorite-form">
+          <input type="hidden" name="recipe_name" value="<%= recipe.strMeal %>">
+          <input type="hidden" name="recipe_thumbnail" value="<%= recipe.strMealThumb %>">
+          <button type="submit" class="favorite-button">Favorite</button>
+        </form>
+      <% } %>
+      
+      
+      
     </div>
+    
 
     <div class="recipe-ingredients">
       <h3>Ingredients:</h3>

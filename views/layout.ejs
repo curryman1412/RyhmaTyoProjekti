@@ -17,10 +17,11 @@
     <header>
       <nav>
         <div class="nav-left">
-          <a href="/"
-            ><img id="logo-img" src="/reseptiguru-logo.png" alt="Reseptiguru"
-          /></a>
-          <a href="/" class="logo">ReseptiGuru</a>
+          <a href="/" class="logo">
+            <img src="/reseptiguru-logo.png" alt="Logo" class="logo-img" />
+            <span class="logo-text">ReseptiGuru</span>
+          </a>
+          
         </div>
         <button class="hamburger" aria-label="Toggle menu">
           <span></span>
@@ -30,15 +31,19 @@
         <ul class="nav-menu">
           <li><a href="/">Home</a></li>
           <% if (locals.user) { %>
-          <li>
-            <span class="user-status">Welcome, <%= user.username %></span>
-          </li>
-          <li><a href="/logout">Logout</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/logout">Logout</a></li>
+            <li>
+              <span class="user-status">Welcome, <%= user.username %></span>
+            </li>
           <% } else { %>
-          <li><a href="/login">Login</a></li>
-          <li><a href="/register">Register</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
           <% } %>
         </ul>
+        
+        </ul>
+        
       </nav>
     </header>
 
